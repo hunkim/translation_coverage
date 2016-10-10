@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/hunkim/translation_coverage.svg?branch=master)](https://travis-ci.org/hunkim/translation_coverage)
+
 # translation coverage
 Automatically check the rates between alpha VS other (unicode)
 
