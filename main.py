@@ -85,7 +85,7 @@ def main():
     for s in printQue:
         print(s)
 
-    print ("\n\n---\nPowered by [Trnslation Coverage](https://github.com/hunkim/translation_coverage)")
+    print ("\n\n---\nPowered by [Translation Coverage](https://github.com/hunkim/translation_coverage)")
 
 if __name__ == '__main__':
     main()
