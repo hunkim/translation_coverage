@@ -6,7 +6,14 @@ Automatically check the rates between alpha VS other (unicode)
 python main.py --ext=".md" --dir=/Users/hunkim/gitworkspace/tensorflow-kr > ~/gitworkspace/tensorflow-kr/progress.md
 ```
 
-## Example 
+## Automatic git push
+See auto_gen_push.sh
+Add it in in your crontab
+```
+01 13 * * * /home/ubuntu/translation_coverage/auto_gen_push.sh
+```
+
+## Generated Coverage Example 
 See https://github.com/tensorflowkorea/tensorflow-kr/blob/master/progress.md
 
 * [/](/) 291962/142050 (32%)
