@@ -1,10 +1,23 @@
+import argparse
 from os import listdir
 from os.path import isfile, isdir, join
+from string import ascii_letters
+
 from report import report_coverage
-from itertools import imap
-import argparse
+
+# 'itertools.imap' was moved to 'map' in Python3
+try:
+    from itertools import imap
+except ImportError:
+    imap = map
 
 print_que = []
+
+
+def is_only_eng_alpha(char):
+    if char in ascii_letters:
+        return True
+    return False
 
 
 def trans_coverage_file(file, ext=None):
@@ -17,8 +30,8 @@ def trans_coverage_file(file, ext=None):
 
             # http://stackoverflow.com/questions/24878174/
             # TODO: It does not work in Python3. Need a better solution
+            words = sum(imap(is_only_eng_alpha, s))
             numbers = sum(imap(str.isdigit, s))
-            words = sum(imap(str.isalpha, s))
             spaces = sum(imap(str.isspace, s))
             others = len(s) - numbers - words - spaces
 
