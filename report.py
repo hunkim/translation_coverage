@@ -1,16 +1,18 @@
 '''
- USed github markdown format
+ Used github markdown format
 '''
-def reportCoverage(depth, args, loc, EngCount, NonEngCount):
+
+
+def report_coverage(depth, args, loc, eng_count, noneng_count):
     indent = ""
     for i in range(depth):
         indent += args.indent
 
-    relLoc = loc[len(args.dir):]
+    rel_loc = loc[len(args.dir):]
 
-    if relLoc == '':
-        relLoc = "/"
+    if rel_loc == '':
+        rel_loc = "/"
 
-    return indent + args.prefix +  "[" + relLoc + "](" + relLoc  + ")" + args.suffix +  " " + \
-           str(EngCount) + "/" + str(NonEngCount) + \
-           " (" + str(NonEngCount*100/(EngCount+NonEngCount)) + "%)"
+    return indent + args.prefix + "[" + rel_loc + "](" + rel_loc + ")" + args.suffix + " " + \
+        str(eng_count) + "/" + str(noneng_count) + \
+        " (" + str(noneng_count * 100 / (eng_count + noneng_count)) + "%)"

@@ -1,10 +1,11 @@
 from os import listdir
 from os.path import isfile, isdir, join
-from report import reportCoverage
+from report import report_coverage
 from itertools import imap
 import argparse
 
-printQue = []
+print_que = []
+
 
 def trans_coverage_file(file, ext=None):
     if ext is not None and not file.lower().endswith(ext):
@@ -26,45 +27,45 @@ def trans_coverage_file(file, ext=None):
         return 0, 0
 
 
-def trans_coverage(depth, args, loc, ext = None, exclude_path = None):
-    global printQue
+def trans_coverage(depth, args, loc, ext=None, exclude_path=None):
+    global print_que
 
     depth += 1
 
     # Exclude path
-    relLoc = loc[len(args.dir):]
-    if exclude_path is not None and relLoc.startswith(exclude_path):
+    rel_loc = loc[len(args.dir):]
+    if exclude_path is not None and rel_loc.startswith(exclude_path):
         return 0, 0
 
     if isfile(loc):
-        EngCount, NonEngCount = trans_coverage_file(loc, ext)
+        eng_count, noneng_count = trans_coverage_file(loc, ext)
     elif isdir(loc):
-        EngCount, NonEngCount = 0, 0
+        eng_count, noneng_count = 0, 0
 
         for f in listdir(loc):
-            fullFile = join(loc, f)
-            eCount, nCount = trans_coverage(depth, args, fullFile, ext, exclude_path)
+            full_file = join(loc, f)
+            e_count, n_count = trans_coverage(depth, args, full_file, ext, exclude_path)
 
-            EngCount += eCount
-            NonEngCount += nCount
+            eng_count += e_count
+            noneng_count += n_count
     else:
-        EngCount, NonEngCount = 0, 0
+        eng_count, noneng_count = 0, 0
 
-    if EngCount is not 0 or NonEngCount is not 0:
-        out = reportCoverage(depth, args, loc, EngCount, NonEngCount)
-        printQue.insert(0, out)
+    if eng_count is not 0 or noneng_count is not 0:
+        out = report_coverage(depth, args, loc, eng_count, noneng_count)
+        print_que.insert(0, out)
 
+    return eng_count, noneng_count
 
-    return EngCount, NonEngCount
 
 def main():
-    global printQue
+    global print_que
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', type=str, default='.',
-                       help='directory to check translation progress')
+                        help='directory to check translation progress')
     parser.add_argument('--ext', type=str, default='.txt .md .html',
-                       help='Translation file extentions. Space separated.')
+                        help='Translation file extentions. Space separated.')
     parser.add_argument('--indent', type=str, default='  ',
                         help='Indentation for depth.')
     parser.add_argument('--prefix', type=str, default='* ',
@@ -78,14 +79,14 @@ def main():
 
     args = parser.parse_args()
 
-    ext =  tuple(args.ext.split())
-    exclude_path =  tuple(args.exclude_path.split())
+    ext = tuple(args.ext.split())
+    exclude_path = tuple(args.exclude_path.split())
     trans_coverage(-1, args, args.dir, ext, exclude_path)
 
     print (args.head)
 
     # Print results in the right order
-    for s in printQue:
+    for s in print_que:
         print(s)
 
     print ("\n\n---\nPowered by [Translation Coverage](https://github.com/hunkim/translation_coverage)")
