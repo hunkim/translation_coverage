@@ -1,8 +1,5 @@
 import unittest
-import numpy as np
 import main
-
-from collections import Counter
 
 
 class TestUtilsMethods(unittest.TestCase):
