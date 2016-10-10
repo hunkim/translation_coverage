@@ -3,9 +3,8 @@ dist: trusty
 language: python
 python:
   - "2.7"
-# Will add 3.5 tests when we fix the issue
-#  - "3.4"
-#  - "3.5"
+  - "3.4"
+  - "3.5"
 # command to install dependencies
 install:
   # install TensorFlow from https://storage.googleapis.com/tensorflow/
