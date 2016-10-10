@@ -1,6 +1,7 @@
 from os import listdir
 from os.path import isfile, isdir, join
 from report import reportCoverage
+from itertools import imap
 import argparse
 
 printQue = []
@@ -13,9 +14,11 @@ def trans_coverage_file(file, ext=None):
         with open(file, "r") as myfile:
             s = myfile.read()
 
-            numbers = sum(c.isdigit() for c in s)
-            words = sum(c.isalpha() for c in s)
-            spaces = sum(c.isspace() for c in s)
+            # http://stackoverflow.com/questions/24878174/
+            # TODO: It does not work in Python3. Need a better solution
+            numbers = sum(imap(str.isdigit, s))
+            words = sum(imap(str.isalpha, s))
+            spaces = sum(imap(str.isspace, s))
             others = len(s) - numbers - words - spaces
 
             return words, others
