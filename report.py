@@ -21,5 +21,5 @@ def report_coverage(depth, args, loc, eng_count, noneng_count):
     return indent + args.prefix + \
         "[" + style + rel_loc + style + "]" +\
         "(" + rel_loc + ")" +\
-        args.suffix + " " + str(eng_count) + "/" + str(noneng_count) +\
-        " (" + str(ratio) + "%)"
+        args.suffix + " (" + str(noneng_count) + "/" + str(eng_count + noneng_count) + \
+        ") [" + str(ratio) + "%]"
