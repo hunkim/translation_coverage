@@ -54,7 +54,7 @@ def trans_coverage(depth, args, loc, ext=None, exclude_path=None):
 
         for f in listdir(loc):
             full_file = join(loc, f)
-            e_count, n_count = trans_coverage(depth, args, full_file, ext,\
+            e_count, n_count = trans_coverage(depth, args, full_file, ext,
                                               exclude_path)
 
             eng_count += e_count
@@ -99,7 +99,7 @@ def main():
     exclude_path = tuple(args.exclude_path.split())
     trans_coverage(-1, args, args.dir, ext, exclude_path)
 
-    print (args.head)
+    print(args.head)
 
     # Print results in the right order
     for s in print_que:

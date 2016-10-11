@@ -6,6 +6,7 @@ import main
 
 
 class TestUtilsMethods(unittest.TestCase):
+
     def setUp(self):
         pass
 
@@ -47,7 +48,7 @@ class TestUtilsMethods(unittest.TestCase):
         args = main.parse_args(["--dir=tests"])
 
         e_count, n_count = main.trans_coverage(0, args, "tests")
-        print ("test dir: ", e_count, n_count)
+        print("test dir: ", e_count, n_count)
         self.assertNotEqual(0, e_count)
         self.assertNotEqual(0, n_count)
 
