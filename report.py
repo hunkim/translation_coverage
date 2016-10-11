@@ -15,10 +15,13 @@ def report_coverage(depth, args, loc, eng_count, noneng_count):
         rel_loc = "/"
 
     ratio = int(noneng_count * 100 / (eng_count + noneng_count))
+    # No translation
     style = "**" if ratio == 0 else ""
+    # Good progress
+    style = "*" if ratio > 50 else ""
 
     return indent + args.prefix + \
         "[" + style + rel_loc + style + "]" +\
         "(" + rel_loc + ")" +\
         args.suffix + " " + str(eng_count) + "/" + str(noneng_count) +\
-        " (" + str() + "%)"
+        " (" + str(ratio) + "%)"
