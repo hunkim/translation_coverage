@@ -18,12 +18,12 @@ Add it in in your crontab
 ## Generated Coverage Example 
 See https://github.com/tensorflowkorea/tensorflow-kr/blob/master/progress.md
 
-* [/](/) 291962/142050 (32%)
-  * [/SUMMARY.md](/SUMMARY.md) 2825/1985 (41%)
-  * [/README.md](/README.md) 368/2262 (86%)
-  * [/g3doc](/g3doc) 288769/137803 (32%)
-    * [/g3doc/tutorials](/g3doc/tutorials) 123547/63990 (34%)
-      * [/g3doc/tutorials/word2vec](/g3doc/tutorials/word2vec) 15729/1946 (11%)
+* [/](/) (142050/434012) [32%]
+  * [/SUMMARY.md](/SUMMARY.md) (1985/4810) [41%]
+  * [/README.md](/README.md) (2262/2630) [86%]
+  * [/g3doc](/g3doc) (137803/426572) [32%]
+    * [/g3doc/tutorials](/g3doc/tutorials) (63990/187537) [34%]
+      * [/g3doc/tutorials/word2vec](/g3doc/tutorials/word2vec) (1946/17675) [11%]
 
 ## Contributions
 We welcome your contributions! 
