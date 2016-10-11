@@ -2,6 +2,7 @@ import argparse
 import sys
 from os import listdir
 from os.path import isfile, isdir, join
+from string import ascii_letters
 
 from report import report_coverage
 
@@ -9,7 +10,10 @@ print_que = []
 
 
 def is_ascii(char):
-    return ord(char) < 128
+    try:
+        return ord(char) < 128
+    except:
+        return False
 
 
 def trans_coverage_file(file, ext=None):
@@ -23,7 +27,7 @@ def trans_coverage_file(file, ext=None):
             words, others = 0, 0
             for c in s:
                 if is_ascii(c):
-                    if not c.isspace():
+                    if c in ascii_letters:
                         words += 1
                 else:
                     others += 1
