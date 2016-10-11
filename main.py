@@ -1,23 +1,15 @@
 import argparse
+import sys
 from os import listdir
 from os.path import isfile, isdir, join
-from string import ascii_letters
 
 from report import report_coverage
-
-# 'itertools.imap' was moved to 'map' in Python3
-try:
-    from itertools import imap
-except ImportError:
-    imap = map
 
 print_que = []
 
 
-def is_only_eng_alpha(char):
-    if char in ascii_letters:
-        return True
-    return False
+def is_ascii(char):
+    return ord(char) < 128
 
 
 def trans_coverage_file(file, ext=None):
@@ -28,12 +20,13 @@ def trans_coverage_file(file, ext=None):
         with open(file, "r") as myfile:
             s = myfile.read()
 
-            # http://stackoverflow.com/questions/24878174/
-            # TODO: It does not work in Python3. Need a better solution
-            words = sum(imap(is_only_eng_alpha, s))
-            numbers = sum(imap(str.isdigit, s))
-            spaces = sum(imap(str.isspace, s))
-            others = len(s) - numbers - words - spaces
+            words, others = 0, 0
+            for c in s:
+                if is_ascii(c):
+                    if not c.isspace():
+                        words += 1
+                else:
+                    others += 1
 
             return words, others
     except:
@@ -57,7 +50,8 @@ def trans_coverage(depth, args, loc, ext=None, exclude_path=None):
 
         for f in listdir(loc):
             full_file = join(loc, f)
-            e_count, n_count = trans_coverage(depth, args, full_file, ext, exclude_path)
+            e_count, n_count = trans_coverage(depth, args, full_file, ext,\
+                                              exclude_path)
 
             eng_count += e_count
             noneng_count += n_count
@@ -71,27 +65,32 @@ def trans_coverage(depth, args, loc, ext=None, exclude_path=None):
     return eng_count, noneng_count
 
 
-def main():
-    global print_que
-
+def parse_args(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', type=str, default='.',
                         help='directory to check translation progress')
     parser.add_argument('--ext', type=str, default='.txt .md .html',
-                        help='Translation file extentions. Space separated.')
+                        help='Translation file extensions. Space separated.')
     parser.add_argument('--indent', type=str, default='  ',
                         help='Indentation for depth.')
     parser.add_argument('--prefix', type=str, default='* ',
-                        help='Prefix for the locaton output.')
+                        help='Prefix for the location output.')
     parser.add_argument('--suffix', type=str, default='',
-                        help='Suffix for the locaton output.')
-    parser.add_argument('--exclude_path', type=str, default='/g3doc/resources /g3doc/api_docs /g3doc/contrib',
+                        help='Suffix for the location output.')
+    parser.add_argument('--exclude_path', type=str,
+                        default='/g3doc/resources /g3doc/api_docs \
+                        /g3doc/contrib',
                         help='Exclude directory.')
-    parser.add_argument('--head', type=str, default='# Translation Coverage \n(Automatically generated. DO NOT edit.)',
+    parser.add_argument('--head', type=str,
+                        default='# Translation Coverage \
+                        \n(Automatically generated. DO NOT edit.)',
                         help='Exclude directory.')
+    return parser.parse_args(args)
 
-    args = parser.parse_args()
 
+def main():
+    global print_que
+    args = parse_args(sys.argv[1:])
     ext = tuple(args.ext.split())
     exclude_path = tuple(args.exclude_path.split())
     trans_coverage(-1, args, args.dir, ext, exclude_path)
@@ -102,7 +101,8 @@ def main():
     for s in print_que:
         print(s)
 
-    print ("\n\n---\nPowered by [Translation Coverage](https://github.com/hunkim/translation_coverage)")
+    print ("\n\n---\nPowered by [Translation Coverage]\
+    (https://github.com/hunkim/translation_coverage)")
 
 if __name__ == '__main__':
     main()
