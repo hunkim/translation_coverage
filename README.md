@@ -35,7 +35,3 @@ autopep8 . --recursive --in-place --pep8-passes 2000 --verbose
 ```
 ## Contributions
 We welcome your contributions! 
-
-
-'# Translation Coverage                         \n(Automatically generated. DO NOT edit.)\n* [/](/) (147/2638) [5%]\n  * [/testMain.pyc](/testMain.pyc) (60/1302) [4%]\n  * [**/testMain.py**](/testMain.py) (6/1227) [0%]\n  * [*/sample_kor.txt*](/sample_kor.txt) (45/45) [100%]\n  * [**/sample_eng.txt**](/sample_eng.txt) (0/11) [0%]\n  * [*/sample.txt*](/sample.txt) (36/53) [67%]\n\n---\nPowered by [Translation Coverage](https://github.com/hunkim/translation_coverage)\n'
-'# Translation Coverage                         \n(Automatically generated. DO NOT edit.)\n  * [/](/) (147/2638) [5%]\n    * [/testMain.pyc](/testMain.pyc) (60/1302) [4%]\n    * [**/testMain.py**](/testMain.py) (6/1227) [0%]\n    * [*/sample_kor.txt*](/sample_kor.txt) (45/45) [100%]\n    * [**/sample_eng.txt**](/sample_eng.txt) (0/11) [0%]\n    * [*/sample.txt*](/sample.txt) (36/53) [67%]\n\n---\nPowered by [Translation Coverage](https://github.com/hunkim/translation_coverage)\n'
