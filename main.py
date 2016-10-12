@@ -52,7 +52,7 @@ def trans_coverage(depth, args, loc, ext=None, exclude_path=None):
     elif isdir(loc):
         eng_count, noneng_count = 0, 0
 
-        for f in listdir(loc):
+        for f in sorted(listdir(loc)):
             full_file = join(loc, f)
             e_count, n_count = trans_coverage(depth, args, full_file, ext,
                                               exclude_path)
@@ -64,7 +64,7 @@ def trans_coverage(depth, args, loc, ext=None, exclude_path=None):
 
     if eng_count is not 0 or noneng_count is not 0:
         out = report_coverage(depth, args, loc, eng_count, noneng_count)
-        print_que.insert(0, out)
+        print_que.append(out)
 
     return eng_count, noneng_count
 
@@ -73,8 +73,8 @@ def parse_args(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', type=str, default='.',
                         help='directory to check translation progress')
-    parser.add_argument('--ext', type=str, default='.txt .md .html',
-                        help='Translation file extensions. Space separated.')
+    parser.add_argument('--ext', type=str, default='.txt .ml .html',
+                        help='Space separated translation file extensions such as ".txt .ml .html."')
     parser.add_argument('--indent', type=str, default='  ',
                         help='Indentation for depth.')
     parser.add_argument('--prefix', type=str, default='* ',
@@ -92,21 +92,23 @@ def parse_args(args):
     return parser.parse_args(args)
 
 
-def main():
+def print_out(args):
     global print_que
+
+    powered_by = "\n\n---\nPowered by [Translation Coverage]" \
+                 "(https://github.com/hunkim/translation_coverage)"
+    return args.head + '\n' + '\n'.join(reversed(print_que)) + powered_by
+
+
+def main():
     args = parse_args(sys.argv[1:])
     ext = tuple(args.ext.split())
     exclude_path = tuple(args.exclude_path.split())
+
     trans_coverage(-1, args, args.dir, ext, exclude_path)
 
-    print(args.head)
-
     # Print results in the right order
-    for s in print_que:
-        print(s)
-
-    print ("\n\n---\nPowered by [Translation Coverage]\
-    (https://github.com/hunkim/translation_coverage)")
+    print(print_out(args))
 
 if __name__ == '__main__':
     main()
