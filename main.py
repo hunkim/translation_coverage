@@ -52,7 +52,7 @@ def trans_coverage(depth, args, loc, ext=None, exclude_path=None):
     elif isdir(loc):
         eng_count, noneng_count = 0, 0
 
-        for f in listdir(loc):
+        for f in sorted(listdir(loc)):
             full_file = join(loc, f)
             e_count, n_count = trans_coverage(depth, args, full_file, ext,
                                               exclude_path)
