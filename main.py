@@ -34,8 +34,8 @@ def trans_coverage_file(file, ext=None):
                         words += 1
                 else:
                     others += 1
-
-            return words, others
+            # We double others, since usually there are many source code (Eng)
+            return words, others*2
     except:
         return 0, 0
 
