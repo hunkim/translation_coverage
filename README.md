@@ -25,5 +25,13 @@ See https://github.com/tensorflowkorea/tensorflow-kr/blob/master/progress.md
     * [/g3doc/tutorials](/g3doc/tutorials) 123547/63990 (34%)
       * [/g3doc/tutorials/word2vec](/g3doc/tutorials/word2vec) 15729/1946 (11%)
 
+## Run test and autopep8
+```bash
+python -m unittest discover -s tests;
+
+# http://stackoverflow.com/questions/14328406/
+pip install autopep8 # if you haven't install
+autopep8 . --recursive --in-place --pep8-passes 2000 --verbose
+```
 ## Contributions
 We welcome your contributions! 
