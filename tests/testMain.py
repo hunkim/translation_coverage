@@ -57,12 +57,8 @@ class TestUtilsMethods(unittest.TestCase):
         # `python main.py --dir tests > sample.md`
         with open("sample.md", "r") as sample:
             s1 = sample.read().splitlines()
-            out = main.print_out(args)
-            print(out)
-            s2 = out.splitlines()
-            # self.assertEqual(s1, s2)
-            # TODO: Weak test due to Python 2 and 3 text handling issue
-            self.assertEqual(len(s1), len(s2))
+            s2 = main.print_out(args).splitlines()
+            self.assertEqual(s1, s2)
 
 if __name__ == '__main__':
     unittest.main()

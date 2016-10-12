@@ -24,6 +24,9 @@ def trans_coverage_file(file, ext=None):
         with open(file, "r") as myfile:
             s = myfile.read()
 
+            if type(s) == bytes:
+                s = s.decode('utf8')
+
             words, others = 0, 0
             for c in s:
                 if is_ascii(c):
