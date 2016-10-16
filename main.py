@@ -4,6 +4,7 @@ from os import listdir
 from os.path import isfile, isdir, join
 from string import ascii_letters
 
+from reader import read_file_with_source_code
 from report import report_coverage
 
 print_que = []
@@ -16,31 +17,29 @@ def is_ascii(char):
         return False
 
 
-def trans_coverage_file(file, ext=None):
-    if ext is not None and not file.lower().endswith(ext):
-        return 0, 0
+def trans_coverage_file(filename, ext_set=None):
+    text_content, text_non_source_code = read_file_with_source_code(filename, ext_set)
 
-    try:
-        with open(file, "r") as myfile:
-            s = myfile.read()
+    content_len = len(text_content)
+    non_source_code_len = len(text_non_source_code)
 
-            if type(s) == bytes:
-                s = s.decode('utf8')
+    # Source code length will be added to 'others'
+    # This is not plain english
+    source_code_len = content_len - non_source_code_len
 
-            words, others = 0, 0
-            for c in s:
-                if is_ascii(c):
-                    if c in ascii_letters:
-                        words += 1
-                else:
-                    others += 1
-            # We double others, since usually there are many source code (Eng)
-            return words, others*2
-    except:
-        return 0, 0
+    words, others = 0, 0
+
+    for c in text_non_source_code:
+        if is_ascii(c):
+            if c in ascii_letters:
+                words += 1
+        else:
+            others += 1
+
+    return words, others + source_code_len
 
 
-def trans_coverage(depth, args, loc, ext=None, exclude_path=None):
+def trans_coverage(depth, args, loc, ext_set=None, exclude_path=None):
     global print_que
 
     depth += 1
@@ -51,13 +50,13 @@ def trans_coverage(depth, args, loc, ext=None, exclude_path=None):
         return 0, 0
 
     if isfile(loc):
-        eng_count, noneng_count = trans_coverage_file(loc, ext)
+        eng_count, noneng_count = trans_coverage_file(loc, ext_set)
     elif isdir(loc):
         eng_count, noneng_count = 0, 0
 
         for f in sorted(listdir(loc), reverse=True):
             full_file = join(loc, f)
-            e_count, n_count = trans_coverage(depth, args, full_file, ext,
+            e_count, n_count = trans_coverage(depth, args, full_file, ext_set,
                                               exclude_path)
 
             eng_count += e_count
@@ -76,8 +75,8 @@ def parse_args(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', type=str, default='.',
                         help='directory to check translation progress')
-    parser.add_argument('--ext', type=str, default='.txt .ml .html',
-                        help='Space separated translation file extensions such as ".txt .ml .html."')
+    parser.add_argument('--ext', type=str, default='.txt .ml .md .html',
+                        help='Space separated translation file extensions such as ".txt .ml .md .html."')
     parser.add_argument('--indent', type=str, default='  ',
                         help='Indentation for depth.')
     parser.add_argument('--prefix', type=str, default='* ',
@@ -105,10 +104,10 @@ def print_out(args):
 
 def main():
     args = parse_args(sys.argv[1:])
-    ext = tuple(args.ext.split())
+    ext_set = tuple(args.ext.split())
     exclude_path = tuple(args.exclude_path.split())
 
-    trans_coverage(-1, args, args.dir, ext, exclude_path)
+    trans_coverage(-1, args, args.dir, ext_set, exclude_path)
 
     # Print results in the right order
     print(print_out(args))
