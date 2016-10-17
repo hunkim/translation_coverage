@@ -10,8 +10,9 @@ def read_file_with_source_code(filename, ext_set=None):
     """Read the file and return the original text and non source code text
 
         Args:
-            file
-
+            filename: full filename
+            ext_set: available extensions
+            
         Returns:
             Tuple of original text and text without source code
     """
