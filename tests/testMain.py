@@ -27,34 +27,39 @@ class TestUtilsMethods(unittest.TestCase):
         self.assertEqual(0, n_count)
 
     def test_trans_coverage_file(self):
-        e_count, n_count = main.trans_coverage_file("tests/sample.md")
+        e_count, n_count = main.trans_coverage_file(
+            "tests/sample.md")
         print("sample: ", e_count, n_count)
         self.assertNotEqual(0, e_count)
         self.assertNotEqual(0, n_count)
 
     def test_trans_coverage_file_kor(self):
-        e_count, n_count = main.trans_coverage_file("tests/sample_kor.md")
+        e_count, n_count = main.trans_coverage_file(
+            "tests/sample_kor.md")
         print("sample_kor: ", e_count, n_count)
         self.assertEqual(0, e_count)
         self.assertNotEqual(0, n_count)
 
     def test_trans_coverage_file_eng(self):
-        e_count, n_count = main.trans_coverage_file("tests/sample_eng.md")
+        e_count, n_count = main.trans_coverage_file(
+            "tests/sample_eng.md")
         print("sample_eng: ", e_count, n_count)
         self.assertNotEqual(0, e_count)
         self.assertEqual(0, n_count)
 
     def test_trans_coverage_file_source_code(self):
-        e_count, n_count = main.trans_coverage_file("tests/sample_source_code.md")
+        e_count, n_count = main.trans_coverage_file(
+            "tests/sample_source_code.md")
         print("sample_source_code: ", e_count, n_count)
-        self.assertEqual(e_count, 0)
-        self.assertNotEqual(n_count, 0)
+        self.assertEqual(0, e_count)
+        self.assertEqual(0, n_count)
 
     def test_trans_coverage(self):
         args = main.parse_args(["--dir=tests"])
         ext = tuple(args.ext.split())
 
-        e_count, n_count = main.trans_coverage(-1, args, "tests", ext)
+        e_count, n_count = main.trans_coverage(
+            -1, args, "tests", ext)
         print("test dir: ", e_count, n_count)
         self.assertNotEqual(0, e_count)
         self.assertNotEqual(0, n_count)

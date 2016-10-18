@@ -6,23 +6,32 @@ def strip_source_code_from_with_md(text):
     return re.sub('```.*?```', '', text, flags=re.DOTALL)
 
 
-def read_file_with_source_code(filename, ext_set=None):
-    """Read the file and return the original text and non source code text
+def get_source_code_stripper(ext):
+    source_code_stripper = {
+        '.md': strip_source_code_from_with_md,
+        # Add stripper for other formats
+    }
+
+    if ext in source_code_stripper:
+        return source_code_stripper[ext]
+
+    # Return just original text
+    return lambda text: text
+
+
+def read_normal_text_from_file(filename, ext_set=None):
+    """Read the file and return the normal text
 
         Args:
             filename: full filename
             ext_set: available extensions
-            
+
         Returns:
-            Tuple of original text and text without source code
+            normal text without special string (e.g. except source code)
     """
-    # Strip function dictionary for specific extension
-    source_code_stripper = {
-        '.md': strip_source_code_from_with_md,
-    }
 
     if ext_set is not None and not filename.lower().endswith(ext_set):
-        return '', ''
+        return ''
 
     try:
         with open(filename, 'r') as trans_file:
@@ -33,12 +42,10 @@ def read_file_with_source_code(filename, ext_set=None):
 
             ext = os.path.splitext(filename)[1]
 
-            # Except source code
-            if ext in source_code_stripper:
-                text_non_source_code = source_code_stripper[ext](text_content)
-            else:
-                text_non_source_code = ''
+            source_code_stripper = get_source_code_stripper(ext)
 
-            return text_content, text_non_source_code
+            text_normal = source_code_stripper(text_content)
+
+            return text_normal
     except:
-        return '', ''
+        return ''

@@ -4,7 +4,7 @@
 '''
 
 
-def report_coverage(depth, args, loc, eng_count, noneng_count):
+def report_coverage(depth, args, loc, eng_count, non_eng_count):
     indent = ""
     for i in range(depth):
         indent += args.indent
@@ -14,12 +14,15 @@ def report_coverage(depth, args, loc, eng_count, noneng_count):
     if rel_loc == '':
         rel_loc = "/"
 
-    ratio = int(noneng_count * 100 / (eng_count + noneng_count))
+    text_count = eng_count + non_eng_count
+
+    ratio = int(non_eng_count * 100 / text_count)
     # No translation
     style = "**" if ratio == 0 else "*" if ratio > 50 else ""
 
     return indent + args.prefix + \
-        "[" + style + rel_loc + style + "]" +\
-        "(" + rel_loc + ")" +\
-        args.suffix + " (" + str(noneng_count) + "/" + str(eng_count + noneng_count) + \
-        ") [" + str(ratio) + "%]"
+        "[" + style + rel_loc + style + "]" + \
+        "(" + rel_loc + ")" + \
+        args.suffix + \
+        " (" + str(non_eng_count) + "/" + str(text_count) + ")" + \
+        " [" + str(ratio) + "%]"
