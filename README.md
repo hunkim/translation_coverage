@@ -18,12 +18,12 @@ Add it in in your crontab
 ## Generated Coverage Example 
 See https://github.com/tensorflowkorea/tensorflow-kr/blob/master/progress.md
 
-* [/](/) (142050/434012) [32%]
-  * [/SUMMARY.md](/SUMMARY.md) (1985/4810) [41%]
-  * [/README.md](/README.md) (2262/2630) [86%]
-  * [/g3doc](/g3doc) (137803/426572) [32%]
-    * [/g3doc/tutorials](/g3doc/tutorials) (63990/187537) [34%]
-      * [/g3doc/tutorials/word2vec](/g3doc/tutorials/word2vec) (1946/17675) [11%]
+* :last_quarter_moon: [/](/) (142050/434012) [32%]
+  * :last_quarter_moon: [/SUMMARY.md](/SUMMARY.md) (1985/4810) [41%]
+  * :waning_gibbous_moon: [/README.md](/README.md) (2262/2630) [86%]
+  * :last_quarter_moon: [/g3doc](/g3doc) (137803/426572) [32%]
+    * :last_quarter_moon: [/g3doc/tutorials](/g3doc/tutorials) (63990/187537) [34%]
+      * :waning_crescent_moon: [/g3doc/tutorials/word2vec](/g3doc/tutorials/word2vec) (1946/17675) [11%]
 
 ## Run test and autopep8
 ```bash
