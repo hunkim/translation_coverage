@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import unittest
-import argparse
 
 import main
 import utils
